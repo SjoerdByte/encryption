@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="nl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="referrer" content="no-referrer">
+    <title>Encryption</title>
+    <link rel="icon" href="data:,">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.3/dist/index.global.js"
+            integrity="sha384-2ql948lIdLcGEE0/qxNiudyTjgauA3RDJERu5xW75kFCvSl5a9odyQYCb6tEjnmB"
+            crossorigin="anonymous"></script>
+    <style type="text/tailwindcss">
+        @theme {
+            --font-sans: "Aptos", "Aptos Display", -apple-system, BlinkMacSystemFont, "Segoe UI Variable Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            --color-ink: #111111;
+            --color-body: #3f3f3f;
+            --color-muted: #767676;
+            --color-hairline: #e6e6e6;
+            --color-faint: #c4c4c4;
+            --color-panel: #f6f6f4;
+            --color-error: #a12a1f;
+        }
+
+        @layer base {
+            html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+            body { font-feature-settings: "kern" 1, "liga" 1; }
+            a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
+                outline: 2px solid var(--color-ink);
+                outline-offset: 3px;
+            }
+            input[type="text"], input[type="password"], textarea {
+                @apply mt-2 w-full rounded-sm border border-hairline bg-white px-3 py-2 text-base text-ink transition-colors duration-150;
+            }
+            input:hover, textarea:hover { @apply border-faint; }
+            input:focus, textarea:focus { @apply border-ink outline-none; }
+            textarea { @apply leading-relaxed; }
+        }
+
+        @layer components {
+            .field-label { @apply block text-sm text-muted; }
+            .link { @apply text-ink underline decoration-hairline decoration-1 underline-offset-4 transition-colors duration-150 hover:decoration-ink; }
+            .button-primary { @apply rounded-sm border border-ink bg-ink px-5 py-3 text-base text-white transition-colors duration-150 hover:bg-body; }
+            .button-secondary { @apply rounded-sm border border-hairline px-5 py-3 text-base text-ink transition-colors duration-150 hover:border-ink; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { transition: none !important; animation: none !important; }
+        }
+    </style>
+    <script type="module" src="/app.js"></script>
+</head>
+
+<body class="bg-white font-sans text-body antialiased">
+
+<div class="mx-auto flex min-h-screen max-w-3xl flex-col px-6 sm:px-10">
+
+    <header class="pt-16 sm:pt-24">
+        <h1 class="text-3xl font-medium uppercase tracking-[0.14em] text-ink sm:text-4xl">Encryption</h1>
+        <p class="mt-4 text-lg text-body sm:text-xl">Tekst versleutelen en ontsleutelen</p>
+    </header>
+
+    <main class="pt-14 sm:pt-20">
+
+        <section class="rounded-sm bg-panel px-6 py-8 sm:px-8">
+
+            <label class="field-label" for="input">Tekst of versleutelde tekst
+                <textarea id="input" rows="5" autocomplete="off" spellcheck="false"></textarea>
+            </label>
+
+            <div class="mt-6">
+                <label class="field-label" for="passphrase">Wachtwoord
+                    <input id="passphrase" type="password" autocomplete="off" spellcheck="false">
+                </label>
+                <div class="mt-2 flex flex-wrap gap-x-6 gap-y-2">
+                    <button id="toggle" type="button" class="link text-sm">Tonen</button>
+                    <button id="generate" type="button" class="link text-sm">Wachtwoord genereren</button>
+                </div>
+            </div>
+
+            <div class="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
+                <button id="encrypt" type="button" class="button-primary">Versleutelen</button>
+                <button id="decrypt" type="button" class="button-secondary">Ontsleutelen</button>
+                <button id="clear" type="button" class="link text-sm">Wissen</button>
+            </div>
+
+            <p id="status" class="mt-6 min-h-6 text-sm text-body" aria-live="polite"></p>
+
+            <div class="mt-6">
+                <div class="flex items-baseline justify-between gap-4">
+                    <label class="field-label" for="output">Resultaat</label>
+                    <button id="copy" type="button" class="link text-sm">Kopiëren</button>
+                </div>
+                <textarea id="output" rows="5" readonly spellcheck="false" class="mt-2"></textarea>
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="mt-auto pb-16 pt-20 sm:pb-20 sm:pt-24">
+        <p class="text-sm text-muted">
+            <a href="https://github.com/SjoerdByte/encryption" target="_blank" rel="noopener noreferrer">
+                GitHub
+            </a>
+        </p>
+    </footer>
+
+</div>
+
+</body>
+</html>
